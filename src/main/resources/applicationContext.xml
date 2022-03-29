@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.mirim.biz"/>
+    <bean id="userService" class="com.mirim.biz.user.impl.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="userDAO" class="com.mirim.biz.user.impl.UserDAO"/>
+
+    <!--<bean id="tv" class="polymorphism.어쩔TV">
+        <property name="speaker" ref="apple"/>
+        <property name="price" value="270000"/>
+    </bean>
+
+    <bean id="sony" class="polymorphism.SonySpeaker"/>
+    <bean id="apple" class="polymorphism.AppleSpeaker"/>-->
+
+</beans>
