@@ -2,19 +2,29 @@ package com.mirim.biz.common;
 
 import com.mirim.biz.user.UserVO;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Service;
 
+@Service
+@Aspect
 public class AfterReturningAdvice {
-    public void AfterReturningAdvice(JoinPoint jp, Object returningObj){
+    @Pointcut("execution(* com.mirim.biz..*Impl.get*(..))")
+    public void getPointcut(){}
+
+    @AfterReturning(pointcut = "getPointcut()", returning = "returnObj")
+    public void AfterReturningAdvice(JoinPoint jp, Object returnObj){
         String method = jp.getSignature().getName();
 
-        if(returningObj instanceof UserVO){ // 객체 타입 판별
-            UserVO user = (UserVO) returningObj;    // 다운캐스팅
+        if(returnObj instanceof UserVO){ // 객체 타입 판별
+            UserVO user = (UserVO) returnObj;    // 다운캐스팅
 
             if(user.getRole().equals("Admin")){
                 System.out.println(user.getName() + " 로그인(Admin)");
             }
         }
 
-        System.out.println("[사후처리] " + method + "() 메서드 리턴 값:" + returningObj.toString());
+        System.out.println("[사후처리] " + method + "() 메서드 리턴 값:" + returnObj.toString());
     }
 }
