@@ -1,15 +1,22 @@
 package com.mirim.biz.common;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.util.StopWatch;
 
 public class AroundAdvice {
     public Object aroundLog(ProceedingJoinPoint pjp) throws Throwable{
-        System.out.println("[Before] 비즈니스 메서드 수행 전에 처리할 내용");
+        String method = pjp.getSignature().getName();
 
-        Object returnObj = pjp.proceed();
+        // Before
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Object obj = pjp.proceed();     // Spring 컨테이너를 통해 사용자의 요청 처리
 
-        System.out.println("[After] 비즈니스 메서드 수행 후에 처리할 내용");
+        // After
+        stopWatch.stop();
+        System.out.println(method + "()메서드 수행에 걸린 시간 : " + stopWatch.getTotalTimeMillis() + "(ms)초");
 
-        return returnObj;
+        // 사용자에게 return
+        return obj;
     }
 }

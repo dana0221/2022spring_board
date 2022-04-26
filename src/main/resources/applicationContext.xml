@@ -5,22 +5,27 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- 어노테이션 사용을 위한 설정 -->
     <context:component-scan base-package="com.mirim.biz"/>
-    <bean id="around" class="com.mirim.biz.common.AroundAdvice"/>
-    <bean id="before" class="com.mirim.biz.common.BeforeAdvice"/>
-    <bean id="afterReturning" class="com.mirim.biz.common.AfterReturningAdvice"/>
-    <bean id="afterThrowing" class="com.mirim.biz.common.AfterThrowingAdvice"/>
+    <aop:aspectj-autoproxy>
+        <!-- 어노테이션을 이용하여 aspect 설정 -->
 
-    <aop:config>
-        <aop:pointcut id="allPointcut" expression="execution(* com.mirim.biz..*Impl.*(..))"/>
-        <aop:pointcut id="getPointcut" expression="execution(* com.mirim.biz..*Impl.get*(..))"/>
+    </aop:aspectj-autoproxy>
+<!--    <bean id="around" class="com.mirim.biz.common.AroundAdvice"/>-->
+<!--    <bean id="before" class="com.mirim.biz.common.BeforeAdvice"/>-->
+<!--    <bean id="afterReturning" class="com.mirim.biz.common.AfterReturningAdvice"/>-->
+<!--    <bean id="afterThrowing" class="com.mirim.biz.common.AfterThrowingAdvice"/>-->
+
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="allPointcut" expression="execution(* com.mirim.biz..*Impl.*(..))"/>-->
+<!--        <aop:pointcut id="getPointcut" expression="execution(* com.mirim.biz..*Impl.get*(..))"/>-->
 <!--        <aop:aspect ref="around">-->
-<!--            <aop:around method="aroundLog" pointcut-ref="getPointcut"/>-->
+<!--            <aop:around method="aroundLog" pointcut-ref="allPointcut"/>-->
 <!--        </aop:aspect>-->
-        <aop:aspect ref="afterThrowing">
-            <aop:after-throwing method="exceptionLog" pointcut-ref="allPointcut" throwing="exceptObj"/>
-        </aop:aspect>
-    </aop:config>
+<!--&lt;!&ndash;        <aop:aspect ref="afterThrowing">&ndash;&gt;-->
+<!--&lt;!&ndash;            <aop:after-throwing method="exceptionLog" pointcut-ref="allPointcut" throwing="exceptObj"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </aop:aspect>&ndash;&gt;-->
+<!--    </aop:config>-->
 
 
     <!--<bean id="tv" class="polymorphism.어쩔TV">
